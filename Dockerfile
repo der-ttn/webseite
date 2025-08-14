@@ -19,6 +19,9 @@ RUN npm run build
 # Production stage with nginx
 FROM nginx:1.25-alpine
 
+# Add label to connect repository to container image
+LABEL org.opencontainers.image.source=https://github.com/der-ttn/webseite
+
 # Copy built assets from builder stage
 COPY --from=builder /app/dist /usr/share/nginx/html
 
