@@ -1,118 +1,171 @@
 <template>
   <BaseLayout>
     <!-- Header Section -->
-    <div class="space-y-8 mb-12">
-      <div class="text-center">
-        <h1 class="text-4xl font-bold mb-6">Kunstinstallationen</h1>
-        <p class="text-muted-foreground max-w-3xl mx-auto">
-          Entdecken Sie unsere einzigartigen elektronischen Kunstinstallationen für Ihre Events.
-          Jede Installation kann gemietet und an Ihre Veranstaltung angepasst werden.
+    <div class="space-y-8 mb-12 text-center">
+      <div class="space-y-6">
+        <h1 class="text-4xl font-bold">{{ $t('installations.title') }}</h1>
+        <p class="text-muted-foreground max-w-3xl mx-auto text-lg">
+          {{ $t('installations.subtitle') }}
         </p>
       </div>
     </div>
 
-    <!-- Installation Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <Card
-        v-for="installation in installations"
-        :key="installation.id"
-        class="group cursor-pointer hover:bg-accent/50 transition-colors overflow-hidden"
-      >
-        <div class="relative overflow-hidden aspect-[4/3]">
-          <img
-            :src="installation.image"
-            :alt="installation.title"
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-          />
-        </div>
-        <CardContent class="p-4">
-          <CardTitle class="text-sm font-medium mb-2">{{ installation.title }}</CardTitle>
-          <Button variant="secondary" size="sm" class="text-xs">
-            {{ installation.category }}
-          </Button>
+    <!-- Installation Description -->
+    <div class="max-w-4xl mx-auto mb-12">
+      <Card class="p-8">
+        <CardContent class="space-y-6 p-0">
+          <p class="text-lg leading-relaxed">
+            {{ $t('installations.description.intro') }}
+          </p>
+          
+          <div class="space-y-4">
+            <div class="flex items-start space-x-3">
+              <div class="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0"></div>
+              <p class="text-muted-foreground">{{ $t('installations.description.waben') }}</p>
+            </div>
+            <div class="flex items-start space-x-3">
+              <div class="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0"></div>
+              <p class="text-muted-foreground">{{ $t('installations.description.ventilatoren') }}</p>
+            </div>
+            <div class="flex items-start space-x-3">
+              <div class="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0"></div>
+              <p class="text-muted-foreground">{{ $t('installations.description.auspuff') }}</p>
+            </div>
+          </div>
+          
+          <Separator class="my-6" />
+          
+          <p class="text-center font-medium">
+            {{ $t('installations.description.outro') }}
+          </p>
+          
+          <div class="flex justify-center">
+            <div class="text-2xl text-muted-foreground">⸻</div>
+          </div>
         </CardContent>
       </Card>
+    </div>
+
+    <!-- Installation Tabs -->
+    <div class="max-w-6xl mx-auto">
+      <Tabs default-value="waben" class="w-full">
+        <TabsList class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 w-full max-w-5xl mx-auto mb-8">
+          <TabsTrigger value="waben">{{ $t('installations.tabs.waben') }}</TabsTrigger>
+          <TabsTrigger value="lightstrips">{{ $t('installations.tabs.lightstrips') }}</TabsTrigger>
+          <TabsTrigger value="spiegelsonne">{{ $t('installations.tabs.spiegelsonne') }}</TabsTrigger>
+          <TabsTrigger value="ventilatoren">{{ $t('installations.tabs.ventilatoren') }}</TabsTrigger>
+          <TabsTrigger value="kaleidoskop">{{ $t('installations.tabs.kaleidoskop') }}</TabsTrigger>
+          <TabsTrigger value="auspuff">{{ $t('installations.tabs.auspuff') }}</TabsTrigger>
+          <TabsTrigger value="segel">{{ $t('installations.tabs.segel') }}</TabsTrigger>
+          <TabsTrigger value="seelentauscher">{{ $t('installations.tabs.seelentauscher') }}</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="waben" class="mt-6">
+          <Suspense>
+            <WabenTab />
+            <template #fallback>
+              <div class="flex justify-center items-center h-64">
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+              </div>
+            </template>
+          </Suspense>
+        </TabsContent>
+
+        <TabsContent value="ventilatoren" class="mt-6">
+          <Suspense>
+            <VentilatorenTab />
+            <template #fallback>
+              <div class="flex justify-center items-center h-64">
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+              </div>
+            </template>
+          </Suspense>
+        </TabsContent>
+
+        <TabsContent value="auspuff" class="mt-6">
+          <Suspense>
+            <AuspuffTab />
+            <template #fallback>
+              <div class="flex justify-center items-center h-64">
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+              </div>
+            </template>
+          </Suspense>
+        </TabsContent>
+
+        <TabsContent value="kaleidoskop" class="mt-6">
+          <Suspense>
+            <KaleidoskopTab />
+            <template #fallback>
+              <div class="flex justify-center items-center h-64">
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+              </div>
+            </template>
+          </Suspense>
+        </TabsContent>
+
+        <TabsContent value="lightstrips" class="mt-6">
+          <Suspense>
+            <LightstripsTab />
+            <template #fallback>
+              <div class="flex justify-center items-center h-64">
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+              </div>
+            </template>
+          </Suspense>
+        </TabsContent>
+
+        <TabsContent value="segel" class="mt-6">
+          <Suspense>
+            <SegelTab />
+            <template #fallback>
+              <div class="flex justify-center items-center h-64">
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+              </div>
+            </template>
+          </Suspense>
+        </TabsContent>
+
+        <TabsContent value="spiegelsonne" class="mt-6">
+          <Suspense>
+            <SpiegelsonneTab />
+            <template #fallback>
+              <div class="flex justify-center items-center h-64">
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+              </div>
+            </template>
+          </Suspense>
+        </TabsContent>
+
+        <TabsContent value="seelentauscher" class="mt-6">
+          <Suspense>
+            <SeelentauscherTab />
+            <template #fallback>
+              <div class="flex justify-center items-center h-64">
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+              </div>
+            </template>
+          </Suspense>
+        </TabsContent>
+      </Tabs>
     </div>
   </BaseLayout>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardTitle } from '@/components/ui/card'
+import { defineAsyncComponent } from 'vue'
+import { Separator } from '@/components/ui/separator'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import BaseLayout from '@/layouts/BaseLayout.vue'
 
-interface Installation {
-  id: number
-  title: string
-  description: string
-  category: string
-  image: string
-}
+// Lazy load tab components
+const WabenTab = defineAsyncComponent(() => import('@/components/tabs/WabenTab.vue'))
+const LightstripsTab = defineAsyncComponent(() => import('@/components/tabs/LightstripsTab.vue'))
+const SpiegelsonneTab = defineAsyncComponent(() => import('@/components/tabs/SpiegelsonneTab.vue'))
+const VentilatorenTab = defineAsyncComponent(() => import('@/components/tabs/VentilatorenTab.vue'))
+const KaleidoskopTab = defineAsyncComponent(() => import('@/components/tabs/KaleidoskopTab.vue'))
+const AuspuffTab = defineAsyncComponent(() => import('@/components/tabs/AuspuffTab.vue'))
+const SegelTab = defineAsyncComponent(() => import('@/components/tabs/SegelTab.vue'))
+const SeelentauscherTab = defineAsyncComponent(() => import('@/components/tabs/SeelentauscherTab.vue'))
 
-const installations = ref<Installation[]>([
-  {
-    id: 1,
-    title: 'Light Tunnel',
-    description: 'Interaktive LED-Installation die auf Musik und Bewegung reagiert.',
-    category: 'Interactive',
-    image: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop',
-  },
-  {
-    id: 2,
-    title: 'Sound Dome',
-    description: 'Visuelle Darstellung von Schallwellen in Echtzeit.',
-    category: 'Audio Visual',
-    image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop',
-  },
-  {
-    id: 3,
-    title: 'Light Portal',
-    description: 'Futuristische Lichtinstallation inspiriert von Cyberpunk Ästhetik.',
-    category: 'Interactive',
-    image: 'https://images.unsplash.com/photo-1520637836862-4d197d17c43a?w=400&h=300&fit=crop',
-  },
-  {
-    id: 4,
-    title: 'Neon Grid',
-    description: 'Synchronisierte Visuals die perfekt zu elektronischer Musik passen.',
-    category: 'Ambient',
-    image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop',
-  },
-  {
-    id: 5,
-    title: 'VR Experience',
-    description: 'Hologramm-ähnliche Projektionen für ein einzigartiges Erlebnis.',
-    category: 'Interactive',
-    image: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop',
-  },
-  {
-    id: 6,
-    title: 'Laser Show',
-    description: 'Unendlichkeitsspiegel mit integrierten LED-Effekten.',
-    category: 'Performance',
-    image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop',
-  },
-  {
-    id: 7,
-    title: 'LED Installation',
-    description: 'Interaktive LED-Installation die auf Musik und Bewegung reagiert.',
-    category: 'Ambient',
-    image: 'https://images.unsplash.com/photo-1520637836862-4d197d17c43a?w=400&h=300&fit=crop',
-  },
-  {
-    id: 8,
-    title: 'Kaleidoscope',
-    description: 'Visuelle Darstellung von Schallwellen in Echtzeit.',
-    category: 'Interactive',
-    image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop',
-  },
-  {
-    id: 9,
-    title: 'Augmented Reality',
-    description: 'Futuristische Lichtinstallation inspiriert von Cyberpunk Ästhetik.',
-    category: 'Experience',
-    image: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop',
-  },
-])
 </script>

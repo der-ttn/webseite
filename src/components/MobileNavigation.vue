@@ -7,7 +7,7 @@
         :class="currentRoute === '/' ? 'text-foreground' : 'text-muted-foreground'"
         @click="closeMobileMenu"
       >
-        HOME
+        {{ $t('navigation.home').toUpperCase() }}
       </router-link>
       <router-link
         to="/installationen"
@@ -15,7 +15,7 @@
         :class="currentRoute === '/installationen' ? 'text-foreground' : 'text-muted-foreground'"
         @click="closeMobileMenu"
       >
-        INSTALLATIONEN
+        {{ $t('navigation.installations').toUpperCase() }}
       </router-link>
       <router-link
         to="/kontakt"
@@ -23,7 +23,7 @@
         :class="currentRoute === '/kontakt' ? 'text-foreground' : 'text-muted-foreground'"
         @click="closeMobileMenu"
       >
-        KONTAKT
+        {{ $t('navigation.contact').toUpperCase() }}
       </router-link>
       <router-link
         to="/impressum"
@@ -31,11 +31,15 @@
         :class="currentRoute === '/impressum' ? 'text-foreground' : 'text-muted-foreground'"
         @click="closeMobileMenu"
       >
-        IMPRESSUM
+        {{ $t('navigation.imprint').toUpperCase() }}
       </router-link>
 
-      <!-- Dark mode toggle for mobile -->
-      <div class="px-4 py-2 border-t mt-2 pt-2">
+      <!-- Language switcher and Dark mode toggle for mobile -->
+      <div class="px-4 py-2 border-t mt-2 pt-2 space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="text-sm font-medium">Language:</span>
+          <LanguageSwitcher />
+        </div>
         <Button variant="ghost" size="sm" @click="toggleDark" class="w-full justify-start">
           <Sun v-if="isDark" class="h-4 w-4 mr-2" />
           <Moon v-else class="h-4 w-4 mr-2" />
@@ -52,6 +56,7 @@ import { useRoute } from 'vue-router'
 import { Button } from '@/components/ui/button'
 import { Sun, Moon } from 'lucide-vue-next'
 import { useDarkMode } from '@/composables/useDarkMode'
+import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 
 interface Props {
   mobileMenuOpen: boolean

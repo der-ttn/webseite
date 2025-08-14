@@ -118,9 +118,3 @@ withDefaults(defineProps<Props>(), {
   height: 103,
 })
 </script>
-
-<style scoped>
-.ttn-logo {
-  display: block;
-}
-</style>

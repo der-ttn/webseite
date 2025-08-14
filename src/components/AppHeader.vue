@@ -15,8 +15,13 @@
         <AppNavigation />
       </div>
 
-      <!-- Right side - dark mode toggle and mobile menu -->
+      <!-- Right side - language switcher, dark mode toggle and mobile menu -->
       <div class="flex items-center space-x-2">
+        <!-- Language switcher -->
+        <div class="hidden md:flex">
+          <LanguageSwitcher />
+        </div>
+
         <!-- Dark mode toggle -->
         <Button variant="ghost" size="sm" @click="toggleDark" class="hidden md:flex">
           <Sun v-if="isDark" class="w-4 h-4" />
@@ -42,6 +47,7 @@ import { Menu, Sun, Moon } from 'lucide-vue-next'
 import TTNLogo from '@/components/TTNLogo.vue'
 import AppNavigation from '@/components/AppNavigation.vue'
 import MobileNavigation from '@/components/MobileNavigation.vue'
+import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 import { useDarkMode } from '@/composables/useDarkMode'
 
 const { isDark, toggleDark } = useDarkMode()
