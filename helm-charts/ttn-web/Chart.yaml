@@ -1,0 +1,15 @@
+apiVersion: v2
+name: ttn-web
+description: A Helm chart for TTN Web Application
+type: application
+version: 0.1.0
+appVersion: "0.0.1"
+home: https://der-ttn.de
+maintainers:
+  - name: TTN Team
+    email: info@der-ttn.de
+keywords:
+  - ttn
+  - web
+  - vue
+  - nginx
