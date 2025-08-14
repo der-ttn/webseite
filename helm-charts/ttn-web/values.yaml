@@ -4,7 +4,7 @@ replicaCount: 2
 image:
   repository: ghcr.io/der-ttn/website
   pullPolicy: IfNotPresent
-  tag: 'latest'
+  tag: 'v0.0.2'
 
 nameOverride: ''
 fullnameOverride: ''
@@ -23,8 +23,6 @@ podSecurityContext: {}
 
 securityContext:
   allowPrivilegeEscalation: false
-  runAsNonRoot: true
-  runAsUser: 101
   capabilities:
     drop:
       - ALL
