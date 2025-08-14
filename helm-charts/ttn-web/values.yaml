@@ -4,7 +4,7 @@ replicaCount: 1
 image:
   repository: ghcr.io/der-ttn/website
   pullPolicy: IfNotPresent
-  tag: '0.0.3'
+  tag: '0.0.4'
 
 nameOverride: ''
 fullnameOverride: ''
@@ -18,19 +18,9 @@ serviceAccount:
 podAnnotations: {}
 podLabels: {}
 
-# Security context with NET_BIND_SERVICE capability for port 80
 podSecurityContext: {}
 
-securityContext:
-  allowPrivilegeEscalation: false
-  capabilities:
-    drop:
-      - ALL
-    add:
-      - NET_BIND_SERVICE
-  readOnlyRootFilesystem: false
-  runAsNonRoot: true
-  runAsUser: 101
+securityContext: {}
 
 service:
   type: ClusterIP
@@ -39,13 +29,11 @@ service:
 
 ingress:
   enabled: true
-  className: 'traefik'
+  className: 'public'
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: 'web,websecure'
-    traefik.ingress.kubernetes.io/router.middlewares: 'website-redirect-https@kubernetescrd'
+    nginx.ingress.kubernetes.io/ssl-redirect: 'true'
+    nginx.ingress.kubernetes.io/force-ssl-redirect: 'true'
     cert-manager.io/cluster-issuer: 'letsencrypt-prod'
-    traefik.ingress.kubernetes.io/router.tls: 'true'
-    traefik.ingress.kubernetes.io/router.tls.certresolver: 'letsencrypt'
   hosts:
     - host: der-ttn.de
       paths:
