@@ -74,21 +74,6 @@
             </div>
           </div>
         </div>
-
-        <div class="space-y-6">
-          <div class="space-y-2">
-            <h2 class="text-2xl font-semibold">Social Media</h2>
-          </div>
-          <div class="flex space-x-4">
-            <a
-              href="https://soundcloud.com/techno-tuev-nord"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button variant="outline" size="sm"> Soundcloud </Button>
-            </a>
-          </div>
-        </div>
       </div>
     </div>
   </BaseLayout>
@@ -98,7 +83,13 @@
 import { ref } from 'vue'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import BaseLayout from '@/layouts/BaseLayout.vue'
 
@@ -117,16 +108,28 @@ const form = ref<ContactForm>({
 })
 
 const submitForm = (): void => {
-  console.log('Form submitted:', form.value)
-  // Here you would typically send the form data to a backend service
-  alert('Nachricht gesendet! Wir melden uns bald bei Ihnen.')
+  // Create mailto link with pre-filled data
+  const subject = encodeURIComponent(`Kontaktanfrage: ${form.value.inquiryType}`)
+  const body = encodeURIComponent(
+    `Name: ${form.value.name}\n` +
+      `E-Mail: ${form.value.email}\n` +
+      `Anfrage zu: ${form.value.inquiryType}\n\n` +
+      `Nachricht:\n${form.value.message}`,
+  )
 
-  // Reset form
-  form.value = {
-    name: '',
-    email: '',
-    inquiryType: '',
-    message: '',
-  }
+  const mailtoLink = `mailto:info@der-ttn.de?subject=${subject}&body=${body}`
+
+  // Open default email client
+  window.location.href = mailtoLink
+
+  // Reset form after opening email client
+  setTimeout(() => {
+    form.value = {
+      name: '',
+      email: '',
+      inquiryType: '',
+      message: '',
+    }
+  }, 500)
 }
 </script>
