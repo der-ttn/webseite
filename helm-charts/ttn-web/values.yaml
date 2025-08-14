@@ -2,7 +2,7 @@
 replicaCount: 2
 
 image:
-  repository: ghcr.io/der-ttn/ttn-web
+  repository: ghcr.io/der-ttn/website
   pullPolicy: IfNotPresent
   tag: 'latest'
 
