@@ -23,7 +23,7 @@ export default defineConfigWithVueTs(
   {
     rules: {
       'vue/multi-word-component-names': ['error', {
-        ignores: ['Button', 'Card', 'Input', 'Form', 'Badge']
+        ignores: ['Button', 'Card', 'Input', 'Form', 'Badge', 'Select', 'Separator', 'Sheet', 'Tabs', 'Textarea', 'Toggle']
       }]
     }
   }

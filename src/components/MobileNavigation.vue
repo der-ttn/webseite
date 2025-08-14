@@ -62,7 +62,7 @@ interface Props {
   mobileMenuOpen: boolean
 }
 
-const props = defineProps<Props>()
+defineProps<Props>()
 
 const emit = defineEmits<{
   'update:mobileMenuOpen': [value: boolean]
