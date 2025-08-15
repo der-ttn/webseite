@@ -4,7 +4,7 @@ replicaCount: 1
 image:
   repository: ghcr.io/der-ttn/website
   pullPolicy: IfNotPresent
-  tag: '0.0.4'
+  tag: '0.0.5'
 
 nameOverride: ''
 fullnameOverride: ''
