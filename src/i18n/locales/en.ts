@@ -9,6 +9,8 @@ export default {
     title: 'Techno Tanz Überprüfungsverein Nord e.V.',
     subtitle: 'e.V.',
     description: 'For more bass, for more love, and for more safety.',
+    nonprofit:
+      'The Techno Tanz Überprüfungsverein Nord e.V. is a non-profit association whose purpose is the promotion of art and culture. We are committed to strengthening the electronic music scene and creating discrimination-free spaces for cultural development.',
   },
   installations: {
     title: 'Art Installations',

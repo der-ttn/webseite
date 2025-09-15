@@ -39,10 +39,17 @@ ingress:
       paths:
         - path: /
           pathType: Prefix
+    - host: technotuev.de
+      paths:
+        - path: /
+          pathType: Prefix
   tls:
     - secretName: ttn-web-tls
       hosts:
         - der-ttn.de
+    - secretName: ttn-web-redirect-tls
+      hosts:
+        - technotuev.de
 
 resources: {}
 

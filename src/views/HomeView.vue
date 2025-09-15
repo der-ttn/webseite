@@ -14,6 +14,10 @@
         <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
           {{ $t('home.description') }}
         </p>
+        <br />
+        <p class="text-base text-muted-foreground max-w-3xl mx-auto mt-6">
+          {{ $t('home.nonprofit') }}
+        </p>
       </div>
     </div>
   </BaseLayout>
