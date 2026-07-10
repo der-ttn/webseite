@@ -51,6 +51,20 @@ ingress:
       hosts:
         - technotuev.de
 
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 30
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
 resources: {}
 
 autoscaling:
