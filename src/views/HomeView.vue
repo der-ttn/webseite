@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-
-interface MediaItem {
-  type: 'image' | 'video'
-  src: string
-  poster?: string
-}
+import MediaLightbox from '@/components/MediaLightbox.vue'
+import { thumbSrc, previewSrc, posterSrc, type MediaItem } from '@/lib/media'
 
 interface Installation {
   code: string
@@ -189,6 +185,14 @@ const merchPhotos = Array.from({ length: 46 }, (_, i) => 2566 + i)
   .filter((n) => n !== 2581)
   .map((n) => `/images/merch/IMG_${n}.JPG`)
 
+const merchMedia: MediaItem[] = merchPhotos.map((src) => ({ type: 'image', src }))
+
+const lightbox = ref<{ media: MediaItem[]; index: number; label: string } | null>(null)
+
+function openLightbox(media: MediaItem[], index: number, label: string) {
+  lightbox.value = { media, index, label }
+}
+
 const active = ref(0)
 const activeInstallation = computed(() => installations[active.value])
 const photoCount = computed(
@@ -235,7 +239,7 @@ const videoCount = computed(
     <div class="hero">
       <video
         class="hero-media"
-        src="/images/IMG_5985.mp4"
+        src="/images/IMG_5985.preview1080.mp4"
         poster="/images/IMG_5984.jpeg"
         autoplay
         muted
@@ -256,7 +260,6 @@ const videoCount = computed(
         </h1>
         <div class="hero-actions">
           <a href="#merch" class="btn-primary">→ ZUM MERCH</a>
-          <a href="mailto:info@der-ttn.de" class="btn-outline">ANTRAG AUF MITGLIEDSCHAFT</a>
         </div>
       </div>
     </div>
@@ -316,25 +319,30 @@ const videoCount = computed(
           </div>
         </div>
         <div v-if="activeInstallation.media.length" class="inst-gallery">
-          <div v-for="m in activeInstallation.media" :key="m.src" class="gallery-cell">
+          <button
+            v-for="(m, mi) in activeInstallation.media"
+            :key="m.src"
+            class="gallery-cell"
+            :aria-label="`${activeInstallation.label} — Beweismittel ${mi + 1} vergrößern`"
+            @click="openLightbox(activeInstallation.media, mi, activeInstallation.label)"
+          >
             <video
               v-if="m.type === 'video'"
-              :src="m.src"
-              :poster="m.poster"
+              :src="previewSrc(m.src)"
+              :poster="posterSrc(m.src)"
               autoplay
               muted
               loop
               playsinline
-              controls
               preload="metadata"
             ></video>
             <img
               v-else
-              :src="m.src"
+              :src="thumbSrc(m.src)"
               :alt="`${activeInstallation.label} — Fotodokumentation`"
               loading="lazy"
             />
-          </div>
+          </button>
         </div>
         <div v-else class="gallery-empty">
           Fotodokumentation ausstehend. Beweismittel werden nachgereicht.
@@ -358,9 +366,15 @@ const videoCount = computed(
       <section id="merch" class="split-cell">
         <h3 class="split-title">§ 3 — Merch</h3>
         <div class="merch-gallery">
-          <figure v-for="src in merchPhotos" :key="src" class="merch-item">
-            <img :src="src" alt="TTN Merch" loading="lazy" />
-          </figure>
+          <button
+            v-for="(src, mi) in merchPhotos"
+            :key="src"
+            class="merch-item"
+            :aria-label="`Merch-Foto ${mi + 1} vergrößern`"
+            @click="openLightbox(merchMedia, mi, 'Merch')"
+          >
+            <img :src="thumbSrc(src)" alt="TTN Merch" loading="lazy" />
+          </button>
         </div>
         <div class="merch-note">Ausgabe erfolgt gegen Nachweis der Tanzfähigkeit.</div>
       </section>
@@ -402,6 +416,14 @@ const videoCount = computed(
       </div>
     </footer>
     </div>
+
+    <MediaLightbox
+      v-if="lightbox"
+      :media="lightbox.media"
+      :start-index="lightbox.index"
+      :label="lightbox.label"
+      @close="lightbox = null"
+    />
   </div>
 </template>
 
@@ -712,8 +734,13 @@ const videoCount = computed(
 .gallery-cell {
   position: relative;
   height: 200px;
+  padding: 0;
   border: 1px solid rgba(255, 22, 84, 0.35);
   background: #0a0a0a;
+  cursor: zoom-in;
+}
+.gallery-cell:hover {
+  border-color: #ff1654;
 }
 .gallery-cell img,
 .gallery-cell video {
@@ -768,7 +795,13 @@ const videoCount = computed(
 }
 .merch-item {
   margin: 0;
+  padding: 0;
   border: 1px solid rgba(255, 22, 84, 0.5);
+  background: #0a0a0a;
+  cursor: zoom-in;
+}
+.merch-item:hover {
+  border-color: #ff1654;
 }
 .merch-item img {
   display: block;
