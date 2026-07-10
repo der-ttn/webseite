@@ -50,7 +50,6 @@ const installations: Installation[] = [
       { type: 'video', src: '/images/lightstrips/IMG_0368.mp4' },
       { type: 'video', src: '/images/lightstrips/IMG_0370.mp4' },
       { type: 'video', src: '/images/lightstrips/IMG_3169.MP4' },
-      { type: 'image', src: '/images/lightstrips/20230602_221015.jpg' },
       { type: 'image', src: '/images/lightstrips/IMG_0309.jpeg' },
       { type: 'image', src: '/images/lightstrips/IMG_0320.jpeg' },
       { type: 'image', src: '/images/lightstrips/IMG_0321.jpeg' },
@@ -62,31 +61,31 @@ const installations: Installation[] = [
     label: 'Spiegelsonne',
     desc: 'Reflektiert alles. Auch dich.',
     media: [
-      { type: 'video', src: '/images/spiegelsonne/IMG_6044.mp4' },
-      { type: 'video', src: '/images/spiegelsonne/IMG_6191.mp4' },
-      { type: 'image', src: '/images/spiegelsonne/IMG_6024.JPG' },
-      { type: 'image', src: '/images/spiegelsonne/IMG_6025.JPG' },
-      { type: 'image', src: '/images/spiegelsonne/IMG_6045.jpeg' },
-      { type: 'image', src: '/images/spiegelsonne/IMG_6046.jpeg' },
-      { type: 'image', src: '/images/spiegelsonne/IMG_6047.jpeg' },
-      { type: 'image', src: '/images/spiegelsonne/IMG_6048.jpeg' },
-      { type: 'image', src: '/images/spiegelsonne/IMG_6174.jpeg' },
-      { type: 'image', src: '/images/spiegelsonne/IMG_6175.jpeg' },
-      { type: 'image', src: '/images/spiegelsonne/IMG_6176.jpeg' },
-      { type: 'image', src: '/images/spiegelsonne/IMG_6177.jpeg' },
-      { type: 'image', src: '/images/spiegelsonne/IMG_6178.jpeg' },
-      { type: 'image', src: '/images/spiegelsonne/IMG_6190.jpeg' },
-      { type: 'image', src: '/images/spiegelsonne/IMG_6192.jpeg' },
-      { type: 'image', src: '/images/spiegelsonne/IMG_6193.jpeg' },
-      { type: 'image', src: '/images/spiegelsonne/IMG_6198.jpeg' },
-      { type: 'image', src: '/images/spiegelsonne/IMG_6199.jpeg' },
-      { type: 'image', src: '/images/spiegelsonne/IMG_6200.jpeg' },
-      { type: 'image', src: '/images/spiegelsonne/IMG_6201.jpeg' },
-      { type: 'image', src: '/images/spiegelsonne/IMG_6205.jpeg' },
-      { type: 'image', src: '/images/spiegelsonne/IMG_6211.jpeg' },
-      { type: 'image', src: '/images/spiegelsonne/IMG_6212.jpeg' },
-      { type: 'image', src: '/images/spiegelsonne/IMG_6215.jpeg' },
       { type: 'image', src: '/images/spiegelsonne/IMG_6216.jpeg' },
+      { type: 'image', src: '/images/spiegelsonne/IMG_6215.jpeg' },
+      { type: 'image', src: '/images/spiegelsonne/IMG_6212.jpeg' },
+      { type: 'image', src: '/images/spiegelsonne/IMG_6211.jpeg' },
+      { type: 'image', src: '/images/spiegelsonne/IMG_6205.jpeg' },
+      { type: 'image', src: '/images/spiegelsonne/IMG_6201.jpeg' },
+      { type: 'image', src: '/images/spiegelsonne/IMG_6200.jpeg' },
+      { type: 'image', src: '/images/spiegelsonne/IMG_6199.jpeg' },
+      { type: 'image', src: '/images/spiegelsonne/IMG_6198.jpeg' },
+      { type: 'image', src: '/images/spiegelsonne/IMG_6193.jpeg' },
+      { type: 'image', src: '/images/spiegelsonne/IMG_6192.jpeg' },
+      { type: 'image', src: '/images/spiegelsonne/IMG_6190.jpeg' },
+      { type: 'image', src: '/images/spiegelsonne/IMG_6178.jpeg' },
+      { type: 'image', src: '/images/spiegelsonne/IMG_6177.jpeg' },
+      { type: 'image', src: '/images/spiegelsonne/IMG_6176.jpeg' },
+      { type: 'image', src: '/images/spiegelsonne/IMG_6175.jpeg' },
+      { type: 'image', src: '/images/spiegelsonne/IMG_6174.jpeg' },
+      { type: 'image', src: '/images/spiegelsonne/IMG_6048.jpeg' },
+      { type: 'image', src: '/images/spiegelsonne/IMG_6047.jpeg' },
+      { type: 'image', src: '/images/spiegelsonne/IMG_6046.jpeg' },
+      { type: 'image', src: '/images/spiegelsonne/IMG_6045.jpeg' },
+      { type: 'image', src: '/images/spiegelsonne/IMG_6025.JPG' },
+      { type: 'image', src: '/images/spiegelsonne/IMG_6024.JPG' },
+      { type: 'video', src: '/images/spiegelsonne/IMG_6191.mp4' },
+      { type: 'video', src: '/images/spiegelsonne/IMG_6044.mp4' },
     ],
   },
   {
@@ -404,8 +403,7 @@ const videoCount = computed(
   background: #050505;
 }
 .page {
-  max-width: 1280px;
-  margin: 0 auto;
+  width: 100%;
   background: #050505;
   color: #f0f0ea;
   font-family: 'IBM Plex Mono', monospace;
@@ -700,7 +698,7 @@ const videoCount = computed(
 }
 .inst-gallery {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 14px;
 }
 .gallery-cell {
