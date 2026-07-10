@@ -25,6 +25,15 @@ function onKey(e: KeyboardEvent) {
   else if (e.key === 'ArrowRight') next()
 }
 
+let touchStartX = 0
+function onTouchStart(e: TouchEvent) {
+  touchStartX = e.changedTouches[0].clientX
+}
+function onTouchEnd(e: TouchEvent) {
+  const dx = e.changedTouches[0].clientX - touchStartX
+  if (Math.abs(dx) > 50) (dx > 0 ? prev : next)()
+}
+
 onMounted(() => {
   window.addEventListener('keydown', onKey)
   document.body.style.overflow = 'hidden'
@@ -37,7 +46,14 @@ onUnmounted(() => {
 
 <template>
   <Teleport to="body">
-    <div class="lightbox" role="dialog" aria-modal="true" @click.self="emit('close')">
+    <div
+      class="lightbox"
+      role="dialog"
+      aria-modal="true"
+      @click.self="emit('close')"
+      @touchstart.passive="onTouchStart"
+      @touchend.passive="onTouchEnd"
+    >
       <div class="lb-top">
         <div class="lb-counter">AKTE {{ label.toUpperCase() }} — {{ index + 1 }} / {{ media.length }}</div>
         <button class="lb-close" aria-label="Schließen" @click="emit('close')">✕</button>

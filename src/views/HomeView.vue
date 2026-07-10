@@ -365,16 +365,22 @@ const videoCount = computed(
       </section>
       <section id="merch" class="split-cell">
         <h3 class="split-title">§ 3 — Merch</h3>
-        <div class="merch-gallery">
-          <button
-            v-for="(src, mi) in merchPhotos"
-            :key="src"
-            class="merch-item"
-            :aria-label="`Merch-Foto ${mi + 1} vergrößern`"
-            @click="openLightbox(merchMedia, mi, 'Merch')"
-          >
-            <img :src="thumbSrc(src)" alt="TTN Merch" loading="lazy" />
-          </button>
+        <div class="merch-carousel">
+          <div class="merch-track">
+            <template v-for="copy in 2" :key="copy">
+              <button
+                v-for="(src, mi) in merchPhotos"
+                :key="`${copy}-${src}`"
+                class="merch-item"
+                :aria-hidden="copy === 2"
+                :tabindex="copy === 2 ? -1 : undefined"
+                :aria-label="`Merch-Foto ${mi + 1} vergrößern`"
+                @click="openLightbox(merchMedia, mi, 'Merch')"
+              >
+                <img :src="thumbSrc(src)" alt="TTN Merch" loading="lazy" />
+              </button>
+            </template>
+          </div>
         </div>
         <div class="merch-note">Ausgabe erfolgt gegen Nachweis der Tanzfähigkeit.</div>
       </section>
@@ -774,6 +780,7 @@ const videoCount = computed(
 .split-cell {
   background: #050505;
   padding: 48px 32px;
+  min-width: 0;
 }
 .split-title {
   margin: 0 0 18px;
@@ -788,13 +795,28 @@ const videoCount = computed(
   line-height: 1.7;
   color: #b5b5aa;
 }
-.merch-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 10px;
+.merch-carousel {
+  overflow: hidden;
+}
+.merch-track {
+  display: flex;
+  width: max-content;
+  animation: merch-scroll 120s linear infinite;
+}
+.merch-carousel:hover .merch-track {
+  animation-play-state: paused;
+}
+@keyframes merch-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 .merch-item {
-  margin: 0;
+  flex: 0 0 auto;
+  margin: 0 10px 0 0;
   padding: 0;
   border: 1px solid rgba(255, 22, 84, 0.5);
   background: #0a0a0a;
@@ -805,8 +827,8 @@ const videoCount = computed(
 }
 .merch-item img {
   display: block;
-  width: 100%;
-  aspect-ratio: 1;
+  width: 150px;
+  height: 150px;
   object-fit: cover;
 }
 .merch-note {
@@ -923,8 +945,9 @@ const videoCount = computed(
   .inst-gallery {
     grid-template-columns: 1fr;
   }
-  .merch-gallery {
-    grid-template-columns: repeat(2, 1fr);
+  .merch-item img {
+    width: 110px;
+    height: 110px;
   }
 }
 </style>
