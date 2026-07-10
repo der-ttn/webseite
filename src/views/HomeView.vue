@@ -166,15 +166,28 @@ const installations: Installation[] = [
     code: 'A.09',
     label: 'Ampeln',
     desc: 'Verkehrsregelung für die Tanzfläche. Grün heißt tanzen, Rot heißt tanzen.',
-    media: [],
+    media: [
+      { type: 'video', src: '/images/ampel/IMG_1985.mp4' },
+      { type: 'video', src: '/images/ampel/IMG_1984.mp4' },
+      { type: 'video', src: '/images/ampel/IMG_1981.mp4' },
+      { type: 'image', src: '/images/ampel/IMG_1990.JPG' },
+    ],
   },
   {
     code: 'A.10',
     label: 'Halbes Auto',
     desc: 'Ein halbes Auto. Der Verbleib der anderen Hälfte ist Gegenstand eines laufenden Verfahrens.',
-    media: [],
+    media: [
+      { type: 'image', src: '/images/halbes-auto/IMG_2181.jpeg' },
+      { type: 'image', src: '/images/halbes-auto/IMG_2179.jpeg' },
+      { type: 'image', src: '/images/halbes-auto/IMG_2180.jpeg' },
+    ],
   },
 ]
+
+const merchPhotos = Array.from({ length: 46 }, (_, i) => 2566 + i)
+  .filter((n) => n !== 2581)
+  .map((n) => `/images/merch/IMG_${n}.JPG`)
 
 const active = ref(0)
 const activeInstallation = computed(() => installations[active.value])
@@ -344,15 +357,10 @@ const videoCount = computed(
       </section>
       <section id="merch" class="split-cell">
         <h3 class="split-title">§ 3 — Merch</h3>
-        <div class="merch-grid">
-          <div class="merch-card">
-            <div class="merch-slot">MERCH-FOTO FOLGT</div>
-            Shirt „GEPRÜFT“
-          </div>
-          <div class="merch-card">
-            <div class="merch-slot">MERCH-FOTO FOLGT</div>
-            Ohrstöpsel, amtlich
-          </div>
+        <div class="merch-gallery">
+          <figure v-for="src in merchPhotos" :key="src" class="merch-item">
+            <img :src="src" alt="TTN Merch" loading="lazy" />
+          </figure>
         </div>
         <div class="merch-note">Ausgabe erfolgt gegen Nachweis der Tanzfähigkeit.</div>
       </section>
@@ -753,26 +761,20 @@ const videoCount = computed(
   line-height: 1.7;
   color: #b5b5aa;
 }
-.merch-grid {
-  display: flex;
-  gap: 14px;
+.merch-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
 }
-.merch-card {
-  flex: 1;
+.merch-item {
+  margin: 0;
   border: 1px solid rgba(255, 22, 84, 0.5);
-  padding: 14px;
-  font-size: 12px;
 }
-.merch-slot {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 110px;
-  margin-bottom: 10px;
-  border: 1px dashed rgba(238, 255, 0, 0.35);
-  color: #9a9a90;
-  font-size: 10px;
-  letter-spacing: 0.2em;
+.merch-item img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
 }
 .merch-note {
   margin-top: 12px;
@@ -888,8 +890,8 @@ const videoCount = computed(
   .inst-gallery {
     grid-template-columns: 1fr;
   }
-  .merch-grid {
-    flex-direction: column;
+  .merch-gallery {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 </style>
